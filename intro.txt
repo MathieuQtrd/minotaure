@@ -1,0 +1,38 @@
+ROLES DES LANGAGES
+------------------
+
+FRONTEND
+--------
+- HTML : Structure d'une page web (régions, blocs, médias ...)
+- CSS  : Mise en forme (couleurs, tailles, bordures ...)
+- JS   : Animation, intéractivité (slider, jeux, sécurité, expérience utilisateur ...)
+
+BACKEND
+-------
+- PHP  : Fonctionnalités (connexion, inscription, panier, CRUD, sécurité, modèle de page). Java, Python, .NET ...
+- SQL  : Communication avec les BDD (CRUD : Création, lecture, modification et suppression de données). SGBD (Système de Gestion de Base de Données : MySQL, PostgresSQL, NoSQL, Oracle, SQLServer ...)
+
+
+
+3 Solutions pour faire un site web
+----------------------------------
+- From scratch : le dev fait tout à la main. Liberté totale mais temps extrèmement long.
+- Framework : Laravel, Symfony, React, CakePHP ..., Liberté importante, temps de dev raccourci.
+- CMS : Content Managing System (Drupal, Wordpress, Magento, Joomla, Prestashop ...). Beaucoup de contraintes liées au CMS choisi, temps de dev très court.
+
+
+
+Liens utiles : 
+--------------
+DOC PHP                 : https://www.php.net/
+DOC Laravel             : https://laravel.com/
+DOC Blade               : https://laravel.com/docs/12.x/blade 
+PHP bonnes pratiques    : https://phptherightway.com/ 
+PHP PSR                 : https://www.php-fig.org/psr/ 
+Tuto Laravel            : https://laracasts.com/
+
+Veille                  : https://www.reddit.com/r/PHP/
+                          https://www.reddit.com/r/laravel/
+                         
+Debuggage               : https://stackoverflow.com/questions
+                          les IA 
