@@ -65,7 +65,7 @@ class EmployeController extends Controller
      */
     public function show(Employe $employe)
     {
-        //
+        return view('employes.show', ['employe' => $employe]);
     }
 
     /**
@@ -73,9 +73,9 @@ class EmployeController extends Controller
      */
     public function edit(Employe $employe)
     {
-        // le mail de l'employé existe
-        // en rajoutant l'id de l'employé, cela permet de ne pas tester cette ligne sur l'unicité
-        // 'email' => 'required|email|max:255|unique:employes,email,' . $employe->id,
+        
+        $services = Service::all(); // pour le select option
+        return view('employes.edit', ['services' => $services, 'employe' => $employe]);
     }
 
     /**
@@ -83,7 +83,29 @@ class EmployeController extends Controller
      */
     public function update(Request $request, Employe $employe)
     {
-        //
+        // le mail de l'employé existe
+        // en rajoutant l'id de l'employé, cela permet de ne pas tester cette ligne sur l'unicité
+        // 'email' => 'required|email|max:255|unique:employes,email,' . $employe->id,
+
+        $validated = $request->validate([
+            'firstname'     => 'required|string|max:255',
+            'lastname'      => 'required|string|max:255',
+            'email'         => 'required|email|max:255|unique:employes,email,' . $employe->id,
+            'hiring_date'   => 'required|date',
+            'salary'        => 'required|numeric|min:0',
+            'service_id'    => 'required|exists:services,id',
+            'photo'         => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
+        ]);
+
+        if($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('photos', 'public');
+            $validated['photo'] = $path;
+            Storage::disk('public')->delete($employe->photo);
+        }
+
+        $employe->update($validated);
+
+        return redirect()->route('employes.index')->with('success', 'Modification effectuée');
     }
 
     /**
@@ -91,7 +113,13 @@ class EmployeController extends Controller
      */
     public function destroy(Employe $employe)
     {
-        // Storage::disk('public')->delete($employe->photo);
+        if($employe->photo) {
+            Storage::disk('public')->delete($employe->photo);
+        }
+        $employe->delete();
+
+        return redirect()->route('employes.index')->with('success', 'L\'employé : <b>' . $employe->lastname . '</b> a bien été supprimé');
+        
     }
 }
 

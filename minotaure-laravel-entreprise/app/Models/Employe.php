@@ -51,7 +51,7 @@ class Employe extends Model
             return Storage::url($this->photo);
         }
         // s'il n'y a pas de photo pour l'employé (la valeur est null)
-        return asset('images/defaut_photo.jpg'); // photo par défaut à créée. Changer le chemin si nécessaire.
+        return asset('images/defaut_photo.png'); // photo par défaut à créée. Changer le chemin si nécessaire.
     }
 
     /*

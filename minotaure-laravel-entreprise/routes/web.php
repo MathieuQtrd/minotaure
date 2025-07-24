@@ -20,6 +20,7 @@ Route::prefix('employes')->name('employes.')->group(function () {
     Route::get('/ajouter', [EmployeController::class, 'create'])->name('create');
     Route::post('/ajouter', [EmployeController::class, 'store'])->name('store');
     Route::get('/modifier/{employe}', [EmployeController::class, 'edit'])->name('edit');
+    Route::get('/fiche_employe/{employe}', [EmployeController::class, 'show'])->name('show');
     Route::put('/{employe}', [EmployeController::class, 'update'])->name('update');
     Route::delete('/{employe}', [EmployeController::class, 'destroy'])->name('destroy');
 });

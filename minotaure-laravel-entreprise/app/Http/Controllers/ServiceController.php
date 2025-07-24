@@ -43,7 +43,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        
     }
 
     /**
@@ -60,7 +60,7 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $validated = $request->validate([
-            'service_name' => 'required|string|max:255|unique:services,service_name',
+            'service_name' => 'required|string|max:255|unique:services,service_name,' . $service->id,
         ]);
 
         $old_name = $service->service_name;

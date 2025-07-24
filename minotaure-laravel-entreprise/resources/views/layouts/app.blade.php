@@ -33,7 +33,7 @@
                         <a class="nav-link" aria-current="page" href="{{ route('employes.create') }}">Ajouter employé</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ route('employes.index') }}">Afficher les employé</a>
+                        <a class="nav-link" aria-current="page" href="{{ route('employes.index') }}">Afficher les employés</a>
                     </li>
                 </ul>
                 </div>
