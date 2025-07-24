@@ -22,6 +22,9 @@ return new class extends Migration
             $table->foreignId('service_id')->constrained()->onDelete('cascade'); // clé étrangère qui se réfère à la table services sur la clé primaire id de cette table
             // ->onDelete('cascade') si on supprime un service, les employes de ce service seront aussi supprimés (CASCADE | SET NULL | RESTRICT | NO ACTION)
 
+            // on peut préciser nous même la colonne liée pour la clé étrangère, dans ce cas on précise le nom de la table concernée dans constrained() 
+            // $table->foreignId('service_secondaire_id')->constrained('services')->onDelete('cascade'); 
+
             $table->string('photo')->nullable(); // l'image n'est pas obligatoire : null possible
 
             $table->timestamps();

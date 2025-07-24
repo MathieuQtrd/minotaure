@@ -73,7 +73,9 @@ class EmployeController extends Controller
      */
     public function edit(Employe $employe)
     {
-        //
+        // le mail de l'employé existe
+        // en rajoutant l'id de l'employé, cela permet de ne pas tester cette ligne sur l'unicité
+        // 'email' => 'required|email|max:255|unique:employes,email,' . $employe->id,
     }
 
     /**

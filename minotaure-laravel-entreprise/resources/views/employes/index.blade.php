@@ -8,8 +8,8 @@
     @foreach($employes AS $employe)
         {{ $employe->firstname }}<br>
         {{ $employe->service->service_name }}
-        {{-- <img src="{{ $employe->photo_url }}"> --}}
-        <img src="{{ asset('storage/' . $employe->photo) }}">
+        <img src="{{ $employe->photo_url }}">
+        {{-- <img src="{{ asset('storage/' . $employe->photo) }}"> --}}
     @endforeach
 @endsection
 
