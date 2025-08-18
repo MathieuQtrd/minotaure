@@ -17,7 +17,7 @@ class Employe extends Model
         'photo',
     ];
 
-    // fillable : les colonne pouvant être remplies
+    // $fillable : les colonne pouvant être remplies
     // à l'inverse : 
     // protected $guarded = []
     // les colonnes qui ne peuvent pas être remplies donc toutes les autres le peuvent
