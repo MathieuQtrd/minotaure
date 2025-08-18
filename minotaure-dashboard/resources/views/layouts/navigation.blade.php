@@ -16,27 +16,32 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    {{-- auth()->check() : true ou false si l'utilisateur est connecté --}}
-                    {{-- auth()->user() : retourne l'objet contenant les informations de l'utilisateur connecté sinon NULL --}}
-                    {{-- auth()->id() : retourne l'id de l'utilisateur connecté sinon NULL --}}
+                    @hasrole('client')
+                    <x-nav-link :href="route('client.dashboard')" :active="request()->routeIs('client.dashboard')">
+                        {{ __('Dashboard Client') }}
+                    </x-nav-link>
+                    @endhasrole
 
-                    @if(auth()->user()->role === 'admin' || auth()->user()->role === 'developpeur' )
-                        <x-nav-link :href="route('developpeur.dashboard')" :active="request()->routeIs('developpeur.dashboard')">
-                            {{ __('Espace développeur') }}
-                        </x-nav-link>
-                    @endif
+                    @hasrole('developpeur')
+                    <x-nav-link :href="route('developpeur.dashboard')" :active="request()->routeIs('developpeur.dashboard')">
+                        {{ __('Dashboard développeur') }}
+                    </x-nav-link>
+                    @endhasrole
 
-                    @if(auth()->user()->role === 'admin' || auth()->user()->role === 'client' )
-                        <x-nav-link :href="route('client.dashboard')" :active="request()->routeIs('client.dashboard')">
-                            {{ __('Espace client') }}
-                        </x-nav-link>
-                    @endif
+                    @hasrole('admin')
+                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Dashboard admin') }}
+                    </x-nav-link>
 
-                    @if(auth()->user()->role === 'admin')
-                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                            {{ __('Espace admin') }}
-                        </x-nav-link>
-                    @endif
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
+                        {{ __('Gestion utilisateurs') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Gestion projets') }}
+                    </x-nav-link>
+                    @endhasrole
+
                 </div>
             </div>
 
