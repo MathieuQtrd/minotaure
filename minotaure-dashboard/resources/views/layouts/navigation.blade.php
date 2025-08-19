@@ -42,6 +42,18 @@
                     </x-nav-link>
                     @endhasrole
 
+                    @can('gerer_role')
+                    <x-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.index')">
+                        {{ __('Gestion rôles') }}
+                    </x-nav-link>
+                    @endcan
+
+                    @can('gerer_permission')
+                    <x-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.index')">
+                        {{ __('Gestion permissions') }}
+                    </x-nav-link>
+                    @endcan
+
                 </div>
             </div>
 

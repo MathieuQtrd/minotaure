@@ -18,11 +18,9 @@
                         <p class="bg-red-100 text-red-700 p-4 rounded-lg shadow-md mb-4">{{ session('error') }}</p>
                     @endif
 
-                    <h1 class="font-semibold border-b-2 border-black pb-3 text-xl my-5">Gestion utilisateur</h1>
-                    
+                    <h1 class="font-semibold border-b-2 border-black pb-3 text-xl my-5">Gestion des rôles</h1>
                     {{-- Pour obtenir le premier role d'un utilisateur : $user->roles->first()->name --}}
                     {{-- 
-                        @dump($users)
                         @dump($roles)
 
                         Exercice :
@@ -40,42 +38,35 @@
                     --}}
 
                     <div class="mb-5">
-                        <a href="{{ route('admin.users.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">+ Ajouter un utilisateur</a>
+                        <a href="{{ route('admin.roles.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">+ Ajouter un rôle</a>
                     </div>
 
                     <table class="w-full border-collapse text-left">
                         <tr class="border">
                             <th class="p-3">Id</th>
                             <th class="p-3">Nom</th>
-                            <th class="p-3">Email</th>
-                            {{-- <th class="p-3">Role</th> --}}
+                            <th class="p-3">Permissions</th>
                             <th class="p-3">Modifier</th>
                             <th class="p-3">Supprimer</th>
                         </tr>
-                        @foreach($users AS $user)
+                        @foreach($roles AS $role)
                         <tr class="border">
-                            <td class="p-3">{{ $user->id }}</td>
-                            <td class="p-3">{{ $user->name }}</td>
-                            <td class="p-3">{{ $user->email }}</td>
-                            {{-- <td class="p-3">{{ $user->roles->isEmpty() ? '' : $user->roles->first()->name }}</td> --}}
+                            <td class="p-3">{{ $role->id }}</td>
+                            <td class="p-3">{{ $role->name }}</td>
                             <td class="p-3">
-                                @if(auth()->id() === $user->id)
-                                {{ $user->roles->first()->name }}
-                                @else
-                                <form action="{{ route('admin.users.updaterole', $user->id) }}" method="POST">
-                                    @csrf 
-                                    @method('PUT')
-                                    <select name="role" id="" onchange="this.form.submit()">
-                                        <option value="" {{ $user->roles->isEmpty() ? ' selected ' : '' }} > - </option>
-                                        @foreach($roles AS $role)
-                                        <option value="{{ $role->name }}" @if($user->hasRole($role->name)) selected @endif >{{ $role->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </form>
-                                @endif
+                                    @foreach($role->permissions AS $permission)
+                                    {{ $permission->name }}<br>
+                                    @endforeach
+
+                            </td>
+                            <td>
+                                <button class="bg-blue-500 text-white px-4 py-2 rounded">
+                                    <a href="{{ route('admin.roles.show', $role->id) }}"><i class="fa-regular fa-eye"></i></a>
+                                </button>
+                                
                             </td>
                             <td class="p-3">
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST">
                                     @csrf 
                                     @method('DELETE')
                                     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return(confirm('Etes vous sûr ?'))"><i class="fa-regular fa-trash-can"></i></button>

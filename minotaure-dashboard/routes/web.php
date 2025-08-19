@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,4 +45,26 @@ Route::middleware(['auth', 'permission:gerer_utilisateur'])->group( function () 
     Route::get('/dashboard/admin/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::put('/dashboard/admin/users/{id}/role', [UserController::class, 'updateRole'])->name('admin.users.updaterole');
     Route::delete('/dashboard/admin/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+    // Création user
+    Route::get('/dashboard/admin/create', [UserController::class, 'create'])->name('admin.users.create');
+    Route::post('/dashboard/admin/users', [UserController::class, 'store'])->name('admin.users.store');
+});
+
+Route::middleware(['auth', 'permission:gerer_role'])->group( function () {
+    Route::get('/dashboard/admin/roles', [RoleController::class, 'index'])->name('admin.roles.index');
+    Route::get('/dashboard/admin/roles/{role}', [RoleController::class, 'show'])->name('admin.roles.show');
+    Route::get('/dashboard/admin/roles/create', [RoleController::class, 'create'])->name('admin.roles.create');
+    Route::post('/dashboard/admin/roles', [RoleController::class, 'store'])->name('admin.roles.store');
+    Route::put('/dashboard/admin/roles/{role}', [RoleController::class, 'update'])->name('admin.roles.update');
+    Route::delete('/dashboard/admin/roles/{id}', [RoleController::class, 'destroy'])->name('admin.roles.destroy');
+    
+});
+
+Route::middleware(['auth', 'permission:gerer_permission'])->group( function () {
+    Route::get('/dashboard/admin/permissions', [PermissionController::class, 'index'])->name('admin.permissions.index');
+    Route::get('/dashboard/admin/permissions/create', [PermissionController::class, 'create'])->name('admin.permissions.create');
+    Route::post('/dashboard/admin/permissions', [PermissionController::class, 'store'])->name('admin.permissions.store');
+    Route::put('/dashboard/admin/permissions/{role}/role', [PermissionController::class, 'update'])->name('admin.permissions.update');
+    Route::delete('/dashboard/admin/permissions/{id}', [PermissionController::class, 'destroy'])->name('admin.permissions.destroy');    
 });
