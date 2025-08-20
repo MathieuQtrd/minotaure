@@ -53,8 +53,8 @@ Route::middleware(['auth', 'permission:gerer_utilisateur'])->group( function () 
 
 Route::middleware(['auth', 'permission:gerer_role'])->group( function () {
     Route::get('/dashboard/admin/roles', [RoleController::class, 'index'])->name('admin.roles.index');
-    Route::get('/dashboard/admin/roles/{role}', [RoleController::class, 'show'])->name('admin.roles.show');
     Route::get('/dashboard/admin/roles/create', [RoleController::class, 'create'])->name('admin.roles.create');
+    Route::get('/dashboard/admin/roles/{role}', [RoleController::class, 'show'])->name('admin.roles.show');
     Route::post('/dashboard/admin/roles', [RoleController::class, 'store'])->name('admin.roles.store');
     Route::put('/dashboard/admin/roles/{role}', [RoleController::class, 'update'])->name('admin.roles.update');
     Route::delete('/dashboard/admin/roles/{id}', [RoleController::class, 'destroy'])->name('admin.roles.destroy');

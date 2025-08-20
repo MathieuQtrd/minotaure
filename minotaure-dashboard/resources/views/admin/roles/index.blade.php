@@ -66,11 +66,17 @@
                                 
                             </td>
                             <td class="p-3">
+                                @if($role->name === 'admin')
+                                    -
+                                @else
+                                
                                 <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST">
                                     @csrf 
                                     @method('DELETE')
                                     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return(confirm('Etes vous sûr ?'))"><i class="fa-regular fa-trash-can"></i></button>
                                 </form>
+                                
+                                @endif
                             </td>
                         </tr>
                         @endforeach
