@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -68,3 +71,29 @@ Route::middleware(['auth', 'permission:gerer_permission'])->group( function () {
     Route::put('/dashboard/admin/permissions/{role}/role', [PermissionController::class, 'update'])->name('admin.permissions.update');
     Route::delete('/dashboard/admin/permissions/{id}', [PermissionController::class, 'destroy'])->name('admin.permissions.destroy');    
 });
+
+Route::middleware(['auth', 'role:admin'])->group( function () {
+    Route::get('/dashboard/admin/projects', [ProjectController::class, 'index'])->name('admin.projects.index');
+
+    Route::get('/dashboard/admin/projects/create', [ProjectController::class, 'create'])->name('admin.projects.create');
+    Route::post('/dashboard/admin/projects/store', [ProjectController::class, 'store'])->name('admin.projects.store');
+    Route::get('/dashboard/admin/projects/{project}', [ProjectController::class, 'show'])->name('admin.project.show');
+    Route::post('/dashboard/admin/projects/add/user/{project}', [ProjectController::class, 'addUser'])->name('admin.project.user.add');
+    Route::delete('/dashboard/admin/projects/remove/user/{project}/{user}', [ProjectController::class, 'removeUser'])->name('admin.project.user.remove');
+
+});
+
+Route::middleware(['auth', 'role:developpeur'])->group( function () {
+    Route::get('/dashboard/developpeur/projects', [ProjectController::class, 'index'])->name('developpeur.projects.index');
+    Route::post('/dashboard/developpeur/task/store/{project}', [TaskController::class, 'store'])->name('developpeur.task.store');
+    Route::get('/dashboard/developpeur/projects/{project}', [ProjectController::class, 'show'])->name('developpeur.project.show');
+    /*
+    
+    Route::post('/dashboard/developpeur/projects/add/user/{project}', [ProjectController::class, 'addUser'])->name('developpeur.project.user.add');
+    Route::delete('/dashboard/developpeur/projects/remove/user/{project}/{user}', [ProjectController::class, 'removeUser'])->name('developpeur.project.user.remove');
+    */
+
+});
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact/send', [ContactController::class, 'sendMail'])->name('contact.send');

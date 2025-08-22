@@ -13,19 +13,22 @@
     // contient les projets : 
         // name
         // description
-        // user_id      (clé étrangère) -> ManyToOne
-        // status       (en cours, terminé)
+        // creator_id           (clé étrangère) -> ManyToOne - createur du projet
+        // client_id            (clé étrangère) -> ManyToOne - client concerné
+        // status               (en cours, terminé)
 
 // project_user 
-    // table pivot pour les liens entre les projets et les développeur affectés aux projets
-        // project_id
-        // user_id
+    // table pivot pour les liens entre les projets et les employés affectés aux projets
+        // project_id       (clé étrangère) -> ManyToMany - projet
+        // user_id          (clé étrangère) -> ManyToMany - developpeur | commercial | chef de projet | admin ...
         
 // tasks
     // contient les tâches à réaliser sur les projets
         // name
         // description
-        // user_id      (clé étrangère) -> ManyToOne
+        // user_id      (clé étrangère) -> ManyToOne - developpeur | commercial | chef de projet | admin ...
+        // project_id   (clé étrangère) -> ManyToOne - projet
         // status       (à faire, en cours, terminé)
+        // priority     (bloquant, urgent, élevé, moyen, faible)
 
 

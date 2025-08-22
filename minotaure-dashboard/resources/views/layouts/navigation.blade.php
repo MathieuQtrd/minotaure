@@ -26,6 +26,10 @@
                     <x-nav-link :href="route('developpeur.dashboard')" :active="request()->routeIs('developpeur.dashboard')">
                         {{ __('Dashboard développeur') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('developpeur.projects.index')" :active="request()->routeIs('developpeur.dashboard')">
+                        {{ __('Mes projets') }}
+                    </x-nav-link>
                     @endhasrole
 
                     @hasrole('admin')
@@ -37,7 +41,7 @@
                         {{ __('Gestion utilisateurs') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                    <x-nav-link :href="route('admin.projects.index')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Gestion projets') }}
                     </x-nav-link>
                     @endhasrole
@@ -53,7 +57,9 @@
                         {{ __('Gestion permissions') }}
                     </x-nav-link>
                     @endcan
-
+                    <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                        {{ __('Contact') }}
+                    </x-nav-link>
                 </div>
             </div>
 

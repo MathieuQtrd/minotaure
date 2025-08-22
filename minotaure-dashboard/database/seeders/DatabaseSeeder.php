@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Project;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -31,5 +32,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
         ])->assignRole('admin');
+
+        Project::factory()->count(10)->create();
     }
 }
