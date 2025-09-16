@@ -2,6 +2,10 @@
 
 // https://spatie.be/docs/laravel-permission/v6/installation-laravel
 
+// composer require spatie/laravel-permission
+
+// php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
 /*
 Outils liés à Spatie :
 ----------------------

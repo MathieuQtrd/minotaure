@@ -1,0 +1,18 @@
+Création de données liées aux évènements
+2 pages :
+    affichage des event dans un tableau avec un bouton pour modifier et un bouton pour supprimer
+    page de création d'évènement avec un formulaire (enregistrement de l'image etc...)
+
+Mettre les liens (views/layouts/navigation)
+Créer les routes : accessible uniquement pour l'admin
+
+Commencer le CRUD :
+    index   : affichage des events
+    create  : affichage du formulaire de création 
+    store   : enregistrement de l'event 
+    ...
+    edit    : affichage du formulaire de modification avec les données présentes
+    update  : mise à jour des données de l'event 
+    destroy : suppression d'un event 
+
+Mettre en place les champs que l'on peut manipuler via le formulaire depuis le fichier Models/Event.php
