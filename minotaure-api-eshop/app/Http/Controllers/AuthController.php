@@ -20,7 +20,7 @@ class AuthController extends Controller
         if($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors(), // on récupère les erreurs de validation
-                'message' => 'Erreur de connexion',
+                'message' => 'Erreur',
             ], 422); // 422 : Code HTTP : Erreur de validation
         }
 
@@ -37,18 +37,50 @@ class AuthController extends Controller
 
     }
 
-    public function login()
+    public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
+        if($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(), // on récupère les erreurs de validation
+                'message' => 'Erreur',
+            ], 422); // 422 : Code HTTP : Erreur de validation
+        }
+
+        // on récupère l'utilisateur sur la base de son login (email)
+        $user = User::where('email', $request->email)->first();
+
+        // on vérifie le mdp
+        if(!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'errors' => [['Erreur sur le login et/ou le mot de passe']], // on récupère les erreurs de validation
+                'message' => 'Erreur',
+            ], 422); 
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+        // On crée un token d'authetification pour l'utilisateur. Ce token sera utilisé pour autoriser l'accès à nos routes protégées par sanctum et spatie selon le role.
+        return response()->json(['token' => $token, 'user' => $user]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $request->user()->tokens()->delete(); // on supprime le token de l'utilisateur
 
+        return response()->json(['message' => 'déconnexion']);
     }
 
-    public function user()
+    public function user(Request $request)
     {
-
+        return response()->json([
+            'id' => $request->user()->id,
+            'name' => $request->user()->name,
+            'email' => $request->user()->email,
+            'roles' => $request->user()->getRoleNames(), // on récupère le ou les roles de l'utilisateur
+        ]);
     }
 }

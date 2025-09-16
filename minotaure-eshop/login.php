@@ -19,7 +19,7 @@
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Inscription</h1>
+                    <h1 class="fw-light">Connexion</h1>
                 </div>
             </div>
         </section>
@@ -27,11 +27,7 @@
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     <div class="col-sm-6 mx-auto my-3">
-                        <form action="" method="post" id="registerForm" class="border p-3">
-                            <div class="mb-3">
-                                <label for="name">Nom</label>
-                                <input type="text" name="name" id="name" class="form-control">
-                            </div>
+                        <form action="" method="post" id="loginForm" class="border p-3">
                             <div class="mb-3">
                                 <label for="email">Email</label>
                                 <input type="text" name="email" id="email" class="form-control">
@@ -40,7 +36,7 @@
                                 <label for="password">Mot de passe</label>
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-dark">Inscription</button>
+                            <button type="submit" class="btn btn-dark">Connexion</button>
                         </form>
                     </div>
 
