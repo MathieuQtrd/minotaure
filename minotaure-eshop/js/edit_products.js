@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('token');
 
-    const productList = document.getElementById('productList');
+    const productId = new URLSearchParams(window.location.search).get('id');
+    let productCategoryId = 0;
 
     const selectCategory = document.getElementById('category_id');
 
-    const productForm = document.getElementById('productForm');
-    if(productForm) {
-        productForm.addEventListener('submit', function(e) {
+    const UpdateProductForm = document.getElementById('UpdateProductForm');
+    if(UpdateProductForm) {
+        UpdateProductForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
             let formData = new FormData();
@@ -22,7 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 formData.append('image', imageField);
             }
 
-            fetch('http://localhost:8000/api/products', {
+            formData.append('_method', 'PUT');
+            
+            fetch('http://localhost:8000/api/products/' + productId, {
                 method: 'POST',
                 headers: { 
                     // 'Content-Type': 'application/json',
@@ -40,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     for(let index in data.errors) {
                         messages.push(...data.errors[index]); // ... opérateur de déstructuration : pour avoir un seul tableau array au lieu d'un tableau contenant des tableau array
                     }
-                    alert(messages.join("\n"));
+                    //alert(messages.join("\n"));
                     console.log(messages);
                 } else {
                     window.location.href= 'products.php';
@@ -51,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    fetch('http://localhost:8000/api/products', {
+    fetch('http://localhost:8000/api/products/' + productId, {
         headers: { 
             'Content-Type': 'application/json',
         },
@@ -69,24 +72,23 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(messages.join("\n"));
             console.log(messages);
         } else {
+            productCategoryId =  data.category_id;
+            console.log(productCategoryId);
 
-            for(let index in data.products) {
-                let tr = document.createElement('tr');
-                    tr.innerHTML = `
-                    <td>${data.products[index].id}</td>
-                    <td>${data.products[index].title}</td>
-                    <td>${data.products[index].category.title}</td>
-                    <td>${data.products[index].stock}</td>
-                    <td>${data.products[index].price}</td>
-                    <td><img src="http://localhost:8000/storage/${data.products[index].image}" width="70" class="img-thumbnail"></td>
-                    <td><a href="edit_products.php?id=${data.products[index].id}" class="btn  btn-warning">Modifier</a></td>
-                    <td><a href="#" onclick="deleteProduct(event, ${data.products[index].id})" class="btn  btn-danger">Supprimer</a></td>
-                    `;                    
-                productList.appendChild(tr)
-            }
+            document.getElementById('title').value = data.title;
+            document.getElementById('description').value = data.description;
+            document.getElementById('stock').value = data.stock;
+            document.getElementById('price').value = data.price;
+
+
+            document.getElementById('oldImage').src = `http://localhost:8000/storage/${data.image}`;
+            document.getElementById('productTitle').textContent = data.title;
+
+
         }
 
     });
+    
 
     fetch('http://localhost:8000/api/categories', {
         headers: { 
@@ -110,7 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
             for(let index in data.categories) {
                 let option = document.createElement('option');
                     option.innerHTML = data.categories[index].title;                    
-                    option.value = data.categories[index].id;                    
+                    option.value = data.categories[index].id;    
+                    
+                    if(data.categories[index].id === productCategoryId) {
+                        option.selected = 'selected'; 
+                    }
                 selectCategory.appendChild(option)
             }
         }

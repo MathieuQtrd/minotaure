@@ -20,10 +20,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12  mt-5">
-                        <h1 class="pb-3 border-bottom">Produits</h1>
+                        <h1 class="pb-3 border-bottom">Modification du produit : <span id="productTitle"></span></h1>
                     </div>
                     <div class="col-12 mt-5">
-                        <form action="" method="post" id="productForm" class="border p-3">
+                        <form action="" method="post" id="UpdateProductForm" class="border p-3">
                             <div class="mb-3">
                                 <label for="title">Title</label>
                                 <input type="text" name="title" id="title" class="form-control">
@@ -45,38 +45,23 @@
                                 <input type="text" name="price" id="price" class="form-control">
                             </div>
                             <div class="mb-3">
+                                <label for="image">Image actuelle</label><br>
+                                <img id="oldImage" class="img-thumbnail" width="140" src="">
+                            </div>
+                            <div class="mb-3">
                                 <label for="image">Image</label>
                                 <input type="file" name="image" id="image" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-dark">Enregistrer</button>
+                            <button type="submit" class="btn btn-dark">Modifier</button>
                         </form>
-                    </div>
-                    <div class="col-12 mt-5">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Titre</th>
-                                    <th>Catégorie</th>
-                                    <th>stock</th>
-                                    <th>Prix</th>
-                                    <th>Images</th>
-                                    <th>Modifier</th>
-                                    <th>Supprimer</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productList">
-
-                            </tbody>
-                        </table>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="../js/access_back.js"></script>
-    <script src="../js/products.js"></script>
+    <script src="../js/edit_products.js"></script>
 </body>
 
 </html>
