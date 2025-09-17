@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             formData.append('_method', 'PUT');
-            
+
             fetch('http://localhost:8000/api/products/' + productId, {
                 method: 'POST',
                 headers: { 
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     //alert(messages.join("\n"));
                     console.log(messages);
                 } else {
-                    window.location.href= 'products.php';
+                    window.location.href = 'products.php';
                 }
 
             });
@@ -125,34 +125,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 });
-function deleteProduct(e, id)
-{
-    e.preventDefault;
-    const token = localStorage.getItem('token');
-    fetch('http://localhost:8000/api/products/' + id, {
-        method: 'DELETE',
-        headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token 
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
 
-        if(data.errors) {
-            let messages = [];
-
-            for(let index in data.errors) {
-                messages.push(...data.errors[index]); // ... opérateur de déstructuration : pour avoir un seul tableau array au lieu d'un tableau contenant des tableau array
-            }
-            alert(messages.join("\n"));
-            console.log(messages);
-        } else {
-            window.location.href= 'products.php';
-
-        }
-
-    });
-}
 

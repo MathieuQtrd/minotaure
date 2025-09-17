@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectCategory = document.getElementById('category_id');
 
     const productForm = document.getElementById('productForm');
+    
     if(productForm) {
         productForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert(messages.join("\n"));
                     console.log(messages);
                 } else {
-                    window.location.href= 'products.php';
+                    // window.location.href= 'products.php';
                 }
 
             });

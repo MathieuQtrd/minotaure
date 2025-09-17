@@ -22,6 +22,7 @@ order
     user_id         foreign_key
     date            datetime
     total_price     integer 
+    status          string
 
 order_details
     id 
