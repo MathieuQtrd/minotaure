@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -60,9 +61,13 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        if(!$product) {
+            return response()->json(['message' => 'Produit non trouvé']);
+        } else {
+            return response()->json($product);
+        }
     }
 
     /**
@@ -76,9 +81,44 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255|unique:categories',
+            'description' => 'required|string',
+            'stock' => 'required|integer',
+            'price' => 'required|integer',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(), // on récupère les erreurs de validation
+                'message' => 'Erreur',
+            ], 422); // 422 : Code HTTP : Erreur de validation
+        }
+
+        if($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('image', 'public');
+            Storage::disk('public')->delete($product->image);
+        } else {
+            $image_path = $product->image;
+        }
+
+        // On crée l'utilisateur
+        $product->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'stock' => $request->stock,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'image' => $image_path,
+        ]);
+
+        
+
+        return response()->json(['message' => 'Produit mis à jour']);
     }
 
     /**
@@ -86,6 +126,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        if($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
         $product->delete();
         return response()->json(['message' => 'Produit supprimée']);
     }
