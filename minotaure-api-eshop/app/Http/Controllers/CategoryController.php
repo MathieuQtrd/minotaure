@@ -33,7 +33,7 @@ class CategoryController extends Controller
             ], 422); // 422 : Code HTTP : Erreur de validation
         }
 
-        // On crée l'utilisateur
+        // On crée la catégorie
         Category::create([
             'title' => $request->title,
         ]);
