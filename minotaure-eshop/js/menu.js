@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     menu.innerHTML = `
         <li class="nav-item"><a class="nav-link" href="index.php">Boutique</a></li>
-        <li class="nav-item"><a class="nav-link" href="panier.php">Panier</a></li>
+        <li class="nav-item"><a class="nav-link" href="cart.php">Panier</a></li>
     `;
 
     if (!token) {

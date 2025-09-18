@@ -45,6 +45,31 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         }
 
+        document.getElementById('formAddToCart').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let cart = [];
+            let productQuantity = document.getElementById('quantity').value;
+
+            if(JSON.parse(localStorage.getItem('cart'))) {
+                cart = JSON.parse(localStorage.getItem('cart'));
+            }
+            console.log(cart);
+
+            let productIndex = cart.findIndex(item => item.id === productId);
+
+            if(productIndex === -1) {
+                cart.push({id: productId, quantity: parseInt(productQuantity)});
+            } else {
+                cart[productIndex].quantity += parseInt(productQuantity);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert('Produit ajouté à votre panier');
+            console.log(cart);
+        });
+
 
 
     });
